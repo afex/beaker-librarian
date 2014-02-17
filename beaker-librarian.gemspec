@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Keith Thornhill"]
   spec.email         = ["keith.thornhill@gmail.com"]
   spec.summary       = %q{Helpers to allow beaker-based tests to use librarian-puppet for module installation on VM hosts}
-  spec.description   = %q{}
-  spec.homepage      = ""
+  spec.description   = %q{Helpers to allow beaker-based tests to use librarian-puppet for module installation on VM hosts}
+  spec.homepage      = "https://github.com/afex/beaker-librarian"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
