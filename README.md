@@ -36,7 +36,7 @@ RSpec.configure do |c|
 end
 ```
 
-To install a specific version of librarian-puppet, e.g. to support Ruby 1.8.x, replace the ```install_librarian``` line above with ```install_librarian({'librarian_version' => '~>1.5.0'})```.
+To install a specific version of librarian-puppet, e.g. to support Ruby 1.8.x, replace the ```install_librarian``` line above with ```install_librarian(:librarian_version => '~>1.5.0'})```.
 
 ## Contributing
 
