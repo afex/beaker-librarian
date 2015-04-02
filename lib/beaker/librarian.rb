@@ -8,10 +8,17 @@ module Beaker
 
     # Install rubygems and the librarian-puppet gem onto each host
     def install_librarian(opts = {})
+      # Check for 'librarian_version' option
+      librarian_version = opts[:librarian_version] ||= nil
+
       hosts.each do |host|
         install_package host, 'rubygems'
         install_package host, 'git'
-        on host, 'gem install librarian-puppet'
+        if librarian_version
+          on host, "gem install --no-ri --no-rdoc librarian-puppet -v '#{librarian_version}'" 
+        else
+          on host, 'gem install --no-ri --no-rdoc librarian-puppet' 
+        end
       end
     end
 
