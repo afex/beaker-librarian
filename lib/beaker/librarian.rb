@@ -12,13 +12,32 @@ module Beaker
       librarian_version = opts[:librarian_version] ||= nil
 
       hosts.each do |host|
-        install_package host, 'rubygems'
+        install_rubygems host
         install_package host, 'git'
         if librarian_version
           on host, "gem install --no-ri --no-rdoc librarian-puppet -v '#{librarian_version}'" 
         else
           on host, 'gem install --no-ri --no-rdoc librarian-puppet' 
         end
+      end
+    end
+
+    def install_rubygems(host)
+      # Copied from
+      # https://github.com/puppetlabs/beaker/blob/617b05a8869f3b6239b23005c27dc6473072133b/lib/beaker/dsl/install_utils/foss_utils.rb#L826
+      unless host.check_for_command( 'gem' )
+        gempkg = case host['platform']
+                   when /solaris-11/                            then 'ruby-18'
+                   when /ubuntu-12/                             then 'rubygems'
+                   when /solaris-10|debian|el-|cumulus|huaweios/  then 'rubygems'
+                   when /openbsd|ubuntu/                         then 'ruby'
+                   else
+                     raise "install_puppet() called with default_action " +
+                             "'gem_install' but program `gem' is " +
+                             "not installed on #{host.name}"
+                 end
+
+        host.install_package gempkg
       end
     end
 
