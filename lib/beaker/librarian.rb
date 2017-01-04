@@ -49,7 +49,7 @@ module Beaker
     def librarian_install_modules(directory, module_name)
       hosts.each do |host|
         sut_dir = File.join('/tmp', module_name)
-        scp_to host, directory, sut_dir
+        copy_module_to(host, source: directory, module_name: module_name, target_module_path: sut_dir)
 
         on host, "cd #{sut_dir} && librarian-puppet install --clean --verbose --path #{host['distmoduledir']}"
 
